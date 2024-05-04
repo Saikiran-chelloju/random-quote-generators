@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Quote Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+			background-image: url('https://img.freepik.com/premium-photo/blue-plant-leaves-garden-blue-background_73485-6228.jpg');
+			background-size: cover;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: rgba(255,255,255,0.13);
+			backdrop-filter: blur(5px);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: white;
+        }
+
+        .quote-container {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        blockquote {
+            font-size: 1.5rem;
+            margin: 20px 0;
+			color: white;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .category-dropdown {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+            margin: 5px;
+        }
+
+        .category-dropdown:hover {
+            background-color: #0056b3;
+        }
+
+        .generate-button {
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+            margin: 5px;
+        }
+
+        .generate-button:hover {
+            background-color: #218838;
+        }
+
+        .share-button {
+            background-color:#D3540B; 
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+            margin: 5px;
+        }
+
+        .share-button:hover {
+            background-color: #A2440E; 
+        }
+
+        @media only screen and (max-width: 600px) {
+            .container {
+                margin: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Random Quote Generator</h1>
+        <div class="quote-container">
+            <blockquote id="quote"></blockquote>
+            <img src="https://quotefancy.com/media/wallpaper/3840x2160/315275-Jared-Leto-Quote-Try-and-fail-but-never-fail-to-try.jpg" src="" alt="Quote Image">
+        </div>
+        <div class="button-container">
+            <select id="category-dropdown" class="category-dropdown">
+                <option value="fun">Fun</option>
+                <option value="love">Love</option>
+                <option value="motivation">Motivation</option>
+                <option value="life">Life</option>
+            </select>
+            <button class="generate-button" onclick="generateQuote()">Generate Quote</button>
+        </div>
+        <div>
+            <button class="share-button" onclick="shareOnFacebook()">Share on Facebook</button>
+            <button class="share-button" onclick="shareOnInstagram()">Share on Instagram</button>
+            <button class="share-button" onclick="shareOnWhatsApp()">Share on WhatsApp</button>
+        </div>
+    </div>
+
+    <script>
+        var quotes = {
+            "fun": [
+                {
+                    "quote": "The only way to do great work is to love what you do.",
+                    "image": "https://source.unsplash.com/600x400/?fun"
+                },
+                {
+                    "quote": "I'm not superstitious, but I am a little stitious.",
+                    "image": "https://source.unsplash.com/600x400/?humor"
+                },
+                {
+                    "quote": "Life is short, smile while you still have teeth.",
+                    "image": "https://source.unsplash.com/600x400/?smile"
+                },
+                {
+                    "quote": "I'm not lazy, I'm on energy-saving mode.",
+                    "image": "https://source.unsplash.com/600x400/?lazy"
+                }
+            ],
+            "love": [
+                {
+                    "quote": "The best thing to hold onto in life is each other.",
+                    "image": "https://source.unsplash.com/600x400/?love"
+                },
+                {
+                    "quote": "The greatest happiness of life is the conviction that we are loved.",
+                    "image": "https://source.unsplash.com/600x400/?happiness"
+                },
+                {
+                    "quote": "You don't marry someone you can live with – you marry the person who you cannot live without.",
+                    "image": "https://source.unsplash.com/600x400/?marriage"
+                },
+                {
+                    "quote": "I have found the one whom my soul loves.",
+                    "image": "https://source.unsplash.com/600x400/?soul"
+                }
+            ],
+            "motivation": [
+                {
+                    "quote": "The only way to achieve the impossible is to believe it is possible.",
+                    "image": "https://source.unsplash.com/600x400/?motivation"
+                },
+                {
+                    "quote": "The only limit to our realization of tomorrow will be our doubts of today.",
+                    "image": "https://source.unsplash.com/600x400/?limitless"
+                },
+                {
+                    "quote": "Success is not final, failure is not fatal: It is the courage to continue that counts.",
+                    "image": "https://source.unsplash.com/600x400/?success"
+                },
+                {
+                    "quote": "The only way to do great work is to love what you do.",
+                    "image": "https://source.unsplash.com/600x400/?work"
+                }
+            ],
+            "life": [
+                {
+                    "quote": "In the end, it's not the years in your life that count. It's the life in your years.",
+                    "image": "https://source.unsplash.com/600x400/?life"
+                },
+                {
+                    "quote": "The purpose of our lives is to be happy.",
+                    "image": "https://source.unsplash.com/600x400/?purpose"
+                },
+                {
+                    "quote": "Life is what happens when you're busy making other plans.",
+                    "image": "https://source.unsplash.com/600x400/?plans"
+                },
+                {
+                    "quote": "Life is like a box of chocolates. You never know what you're gonna get.",
+                    "image": "https://source.unsplash.com/600x400/?chocolates"
+                }
+            ]
+        };
+
+        function generateQuote() {
+            var category = document.getElementById('category-dropdown').value;
+            var randomNumber = Math.floor(Math.random() * quotes[category].length);
+            var quoteElement = document.getElementById('quote');
+            var quoteImage = document.getElementById('quote-image');
+            quoteElement.textContent = quotes[category][randomNumber].quote;
+            quoteImage.src = quotes[category][randomNumber].image;
+        }
+
+        function shareOnFacebook() {
+            var currentQuote = document.getElementById('quote').textContent;
+            window.open('https://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(currentQuote));
+        }
+
+        function shareOnInstagram() {
+            var currentQuote = document.getElementById('quote').textContent;
+            window.open('https://www.instagram.com/?url=' + encodeURIComponent(currentQuote));
+        }
+
+        function shareOnWhatsApp() {
+            var currentQuote = document.getElementById('quote').textContent;
+            window.open('https://api.whatsapp.com/send?text=' + encodeURIComponent(currentQuote));
+        }
+    </script>
+</body>
+</html>
